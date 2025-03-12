@@ -8,7 +8,7 @@ export default function MealItem({ title, slug, image, summary, creator }) {
     <article className={classes.meal}>
       <header>
         <div className={classes.image}>
-            // fill prop insted of setting "width" n "height" whenever we have an image where we don't know the dimensions in advance
+            {/* fill prop insted of setting "width" n "height" whenever we have an image where we don't know the dimensions in advance */}
           <Image src={image} alt={title} fill />
         </div>
         <div className={classes.headerText}>

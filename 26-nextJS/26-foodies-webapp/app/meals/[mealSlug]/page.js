@@ -1,17 +1,32 @@
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import Image from "next/image";
+import { notFound } from "next/navigation";
 
-import { getMeal } from '@/lib/meals';
-import classes from './page.module.css';
+import { getMeal } from "@/lib/meals";
+import classes from "./page.module.css";
+
+// For dynamic pages, you can add metadata by not exporting a constant or variable named metadata,but by instead exporting an async function called generateMetadata.If it doesn't find any other metadata, it's checking whether there is such a function,
+
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
 
 export default function MealDetailsPage({ params }) {
   const meal = getMeal(params.mealSlug);
 
   if (!meal) {
-    notFound(); // find closest not found page 
+    notFound(); // find closest not found page
   }
 
-  meal.instructions = meal.instructions.replace(/\n/g, '<br />');
+  meal.instructions = meal.instructions.replace(/\n/g, "<br />");
 
   return (
     <>

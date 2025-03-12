@@ -3,7 +3,6 @@ import fs from "node:fs";
 import sql from "better-sqlite3";
 import slugify from "slugify";
 import xss from "xss";
-import { error } from "node:console";
 
 const db = sql("meals.db");
 
@@ -29,7 +28,7 @@ export async function saveMeal(meal) {
   // needed for write method
   const bufferedImage = await meal.image.arrayBuffer();
 
-  // 1st arg you wanna write 2ns arg is a function that will be executed once it's done writing
+  // 1st arg you wanna write 2nd arg is a function that will be executed once it's done writing
   stream.write(Buffer.from(bufferedImage), (error) => {
     if (error) {
       throw new Error("Saving image failed!");
